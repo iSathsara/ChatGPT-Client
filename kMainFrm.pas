@@ -100,7 +100,7 @@ begin
   Self.ReadIniFile;
   OpenAI:= TOpenAI.Create(fAPIKey);    
 
-  // response I guess
+  // response
   Completion:= OpenAI.Completion.Create(
                procedure(Params: TCompletionParams)
                begin
