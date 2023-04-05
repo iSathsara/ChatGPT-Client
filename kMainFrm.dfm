@@ -11,6 +11,7 @@ object FrmMain: TFrmMain
   Font.Name = 'Segoe UI'
   Font.Style = []
   Position = poDesktopCenter
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 15
   object Label1: TLabel
@@ -19,12 +20,6 @@ object FrmMain: TFrmMain
     Width = 54
     Height = 15
     Caption = 'Ask here...'
-  end
-  object lblStatus: TLabel
-    Left = 272
-    Top = 86
-    Width = 113
-    Height = 17
   end
   object edtAsk: TEdit
     Left = 56
@@ -42,27 +37,13 @@ object FrmMain: TFrmMain
     TabOrder = 1
     OnClick = btnSubmitClick
   end
-  object memResult: TMemo
-    Left = 56
-    Top = 136
-    Width = 497
-    Height = 233
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -16
-    Font.Name = 'Cascadia Code Light'
-    Font.Style = []
-    ParentFont = False
-    ScrollBars = ssVertical
-    TabOrder = 2
-  end
   object btnClear: TButton
     Left = 478
     Top = 385
     Width = 75
     Height = 25
     Caption = 'Clear'
-    TabOrder = 3
+    TabOrder = 2
     OnClick = btnClearClick
   end
   object btnCopyToClipbrd: TButton
@@ -71,7 +52,60 @@ object FrmMain: TFrmMain
     Width = 281
     Height = 25
     Caption = 'Copy to Clipboard'
-    TabOrder = 4
+    TabOrder = 3
     OnClick = btnCopyToClipbrdClick
+  end
+  object pnlResult: TPanel
+    Left = 56
+    Top = 136
+    Width = 497
+    Height = 233
+    Caption = 'pnlResult'
+    TabOrder = 4
+    object imgResult: TImage
+      Left = 288
+      Top = 40
+      Width = 169
+      Height = 145
+    end
+    object memResult: TMemo
+      Left = 29
+      Top = 40
+      Width = 212
+      Height = 145
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Cascadia Code Light'
+      Font.Style = []
+      ParentFont = False
+      ScrollBars = ssVertical
+      TabOrder = 0
+    end
+  end
+  object btnImage: TButton
+    Left = 247
+    Top = 82
+    Width = 185
+    Height = 25
+    Caption = 'Show Image'
+    TabOrder = 5
+    OnClick = btnImageClick
+  end
+  object IdHTTP: TIdHTTP
+    ProxyParams.BasicAuthentication = False
+    ProxyParams.ProxyPort = 0
+    Request.ContentLength = -1
+    Request.ContentRangeEnd = -1
+    Request.ContentRangeStart = -1
+    Request.ContentRangeInstanceLength = -1
+    Request.Accept = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    Request.BasicAuthentication = False
+    Request.UserAgent = 'Mozilla/3.0 (compatible; Indy Library)'
+    Request.Ranges.Units = 'bytes'
+    Request.Ranges = <>
+    HTTPOptions = []
+    Left = 552
+    Top = 96
   end
 end
