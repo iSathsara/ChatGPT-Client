@@ -156,6 +156,8 @@ begin
             procedure(Params: TImageCreateParams)
             begin
               Params.Prompt(edtAsk.Text);
+              Params.Size('1024x1024');
+              Params.N(1);
               Params.ResponseFormat('url');
             end);
     try
