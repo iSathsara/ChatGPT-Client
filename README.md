@@ -10,7 +10,10 @@ apikey=my_obtained_key
 ```
 
 IDE must have OpenAI plugin \
-Ref: https://github.com/HemulGM/DelphiOpenAI
+Ref: https://github.com/HemulGM/DelphiOpenAI\
+
+
+Download SSL libraries from [here](http://indy.fulgan.com/SSL/) The latest versions are at the bottom.
 
 ### Sample Screenshot
 ![image](https://user-images.githubusercontent.com/53097068/228934117-0ed24dfc-fff0-4a62-ab11-45b80a7d2ff6.png)
