@@ -9,7 +9,8 @@ uses
   System.IOUtils,
   System.StrUtils,
   Clipbrd, Vcl.Tabs, Vcl.ExtCtrls, IdBaseComponent, IdComponent,
-  IdTCPConnection, IdTCPClient, IdHTTP;
+  IdTCPConnection, IdTCPClient, IdHTTP, IdIOHandler, IdIOHandlerSocket,
+  IdIOHandlerStack, IdSSL, IdSSLOpenSSL;
 
 type
   TFrmMain = class(TForm)
@@ -23,6 +24,7 @@ type
     imgResult: TImage;
     btnImage: TButton;
     IdHTTP: TIdHTTP;
+    IdSSLIOHandlerSocketOpenSSL: TIdSSLIOHandlerSocketOpenSSL;
     procedure btnSubmitClick(Sender: TObject);
     procedure btnClearClick(Sender: TObject);
     procedure btnCopyToClipbrdClick(Sender: TObject);
@@ -41,6 +43,7 @@ type
 var
   FrmMain: TFrmMain;
   IsImage: Boolean;
+  DllPath: String;
 
 implementation
 
@@ -60,6 +63,7 @@ begin
   memResult.Visible:=False;
   imgResult.Visible:=False;
   IsImage:=False;
+  DllPath:='';
 end;
 {______________________________________________________________________________}
 procedure TFrmMain.AdjustPanel;
@@ -116,8 +120,10 @@ begin
 
   // get file path
   Path:= ExtractFileDir(ParamStr(0));
-  Path:= ReplaceText(Path, '\Win32\Debug', '\APIKey.ini');
+  Path:= ReplaceText(Path, '\Win32\Debug',   '\APIKey.ini');
   Path:= ReplaceText(Path, '\Win32\Release', '\APIKey.ini');
+  // SSL library path
+  DllPath:= ReplaceText(Path, '\APIKey.ini', '');
 
   // create & read ini file
   iniFile:= TIniFile.Create(Path);
@@ -144,7 +150,8 @@ begin
   Self.AdjustPanel;
   OpenAI:= TOpenAI.Create(fAPIKey);
   Stream:= TMemoryStream.Create;
-  IdOpenSSLSetLibPath('C:\Windows\SysWOW64\ssleay32.dll');
+  // tell Indy to load dlls from given path
+  IdOpenSSLSetLibPath(DllPath);
   Image:= OpenAI.Image.Create(
             procedure(Params: TImageCreateParams)
             begin
@@ -152,12 +159,12 @@ begin
               Params.ResponseFormat('url');
             end);
     try
-      if Image <> nil then Begin
-        // we select only one image. not multiple
+      if (Image.Data <> nil) then Begin
+        // we select only one image. not multiples
         URL:= Image.Data[0].Url;
         IdHTTP.Get(URL, Stream);
         Stream.Seek(0, soFromBeginning);
-        imgResult.Picture.Bitmap.LoadFromStream(Stream);
+        imgResult.Picture.LoadFromStream(Stream);  // INVALID GRAPHIC CLASS ISSUE
       End
       else Begin
         imgResult.Visible:=False;

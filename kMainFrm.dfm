@@ -93,6 +93,7 @@ object FrmMain: TFrmMain
     OnClick = btnImageClick
   end
   object IdHTTP: TIdHTTP
+    IOHandler = IdSSLIOHandlerSocketOpenSSL
     ProxyParams.BasicAuthentication = False
     ProxyParams.ProxyPort = 0
     Request.ContentLength = -1
@@ -104,8 +105,20 @@ object FrmMain: TFrmMain
     Request.UserAgent = 'Mozilla/3.0 (compatible; Indy Library)'
     Request.Ranges.Units = 'bytes'
     Request.Ranges = <>
-    HTTPOptions = []
-    Left = 552
-    Top = 96
+    HTTPOptions = [hoForceEncodeParams]
+    Left = 176
+    Top = 144
+  end
+  object IdSSLIOHandlerSocketOpenSSL: TIdSSLIOHandlerSocketOpenSSL
+    MaxLineAction = maException
+    Port = 0
+    DefaultPort = 0
+    SSLOptions.Method = sslvSSLv23
+    SSLOptions.SSLVersions = [sslvSSLv2, sslvSSLv3, sslvTLSv1, sslvTLSv1_1, sslvTLSv1_2]
+    SSLOptions.Mode = sslmUnassigned
+    SSLOptions.VerifyMode = []
+    SSLOptions.VerifyDepth = 0
+    Left = 296
+    Top = 144
   end
 end
