@@ -1,4 +1,5 @@
 ## ChatGPT_Client
+(under development)\
 is a Delphi application which you can ask questions and get answers from ChatGPT. It uses ``` text-davinci-003 ``` as model (only works for Text).\
 You must have a valid API key, in order to use this application. If you don't have an API key, you can generate from [here](https://platform.openai.com/overview)
 
