@@ -51,7 +51,8 @@ object FrmMain: TFrmMain
     Top = 385
     Width = 281
     Height = 25
-    Caption = 'Copy to Clipboard'
+    Caption = 'Copy To Clipboard'
+    Enabled = False
     TabOrder = 3
     OnClick = btnCopyToClipbrdClick
   end
@@ -67,6 +68,7 @@ object FrmMain: TFrmMain
       Top = 40
       Width = 169
       Height = 145
+      Stretch = True
     end
     object memResult: TMemo
       Left = 29
@@ -120,5 +122,9 @@ object FrmMain: TFrmMain
     SSLOptions.VerifyDepth = 0
     Left = 296
     Top = 144
+  end
+  object SaveDialog: TSaveDialog
+    Left = 416
+    Top = 128
   end
 end
