@@ -10,7 +10,8 @@ uses
   System.StrUtils,
   Clipbrd, Vcl.Tabs, Vcl.ExtCtrls, IdBaseComponent, IdComponent,
   IdTCPConnection, IdTCPClient, IdHTTP, IdIOHandler, IdIOHandlerSocket,
-  IdIOHandlerStack, IdSSL, IdSSLOpenSSL, Vcl.Imaging.pngimage, Vcl.Imaging.jpeg;
+  IdIOHandlerStack, IdSSL, IdSSLOpenSSL, Vcl.Imaging.pngimage, Vcl.Imaging.jpeg,
+  Vcl.ExtDlgs;
 
 type
   TResultType = (rtText, rtImage);
@@ -28,7 +29,7 @@ type
     btnImage: TButton;
     IdHTTP: TIdHTTP;
     IdSSLIOHandlerSocketOpenSSL: TIdSSLIOHandlerSocketOpenSSL;
-    SaveDialog: TSaveDialog;
+    SavePictureDialog: TSavePictureDialog;
     procedure btnSubmitClick(Sender: TObject);
     procedure btnClearClick(Sender: TObject);
     procedure btnCopyToClipbrdClick(Sender: TObject);
@@ -107,28 +108,10 @@ procedure TFrmMain.btnCopyToClipbrdClick(Sender: TObject);
 
   // save image result to file, force to png
   procedure DownloadImage;
-  var
-    FileName: TFileName;
-    png: TPngImage;
-    TargetGraphic: TGraphic;
   begin
-    SaveDialog.Execute;
-    FileName:= SaveDialog.FileName;
-
-    png:= nil;
-    TargetGraphic:= TGraphicClass.Create;
-    // set graphic class
-    try
-      png:=TPngImage.Create;
-      png.Assign(imgResult.Picture.Graphic);
-      TargetGraphic.Assign(png);
-      TargetGraphic.SaveToFile(FileName);
-//      imgResult.Picture.SaveToFile(FileName);
-    finally
-      TargetGraphic.Free;
-      png.Free;
-    end;
-
+    SavePictureDialog.Execute;
+    if SavePictureDialog.FileName <> '' then
+      imgResult.Picture.SaveToFile(SavePictureDialog.FileName);
   end;
 begin
   case ResultType of

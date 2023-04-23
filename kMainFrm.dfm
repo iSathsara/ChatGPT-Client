@@ -123,8 +123,8 @@ object FrmMain: TFrmMain
     Left = 296
     Top = 144
   end
-  object SaveDialog: TSaveDialog
-    Left = 416
+  object SavePictureDialog: TSavePictureDialog
+    Left = 424
     Top = 128
   end
 end
