@@ -106,7 +106,6 @@ procedure TFrmMain.btnCopyToClipbrdClick(Sender: TObject);
       Clipboard.AsText:= memResult.Lines.Text;
   end;
 
-  // save image result to file, force to png
   procedure DownloadImage;
   begin
     SavePictureDialog.Execute;
